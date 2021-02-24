@@ -1,7 +1,7 @@
 ---
 - name: Main configuration file that executes roles
   hosts: all
-  remote_user: ec2-user
+  remote_user: ubuntu
   become: yes
 
   roles:
