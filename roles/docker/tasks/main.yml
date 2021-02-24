@@ -16,11 +16,11 @@
         name: docker
         state: present
 
-    # sudo usermod -aG docker ec2-user
+    # sudo usermod -aG docker ubuntu
     # Do this so that docker commands can be executed without the need to use sudo
-    - name: Add ec2-user to docker group
+    - name: Add ubuntu to docker group
       user:
-        name: ec2-user
+        name: ubuntu
         group: docker
         append: yes
 
