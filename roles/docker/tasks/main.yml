@@ -1,0 +1,32 @@
+---
+- name: Docker installation
+  block:
+    - name: Install Docker using amazon-linux-extras
+      command: amazon-linux-extras install -y docker
+
+    - name: Start Docker service and enable on start-up boot
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    # sudo groupadd docker
+    - name: create 'docker' usergroup
+      group:
+        name: docker
+        state: present
+
+    # sudo usermod -aG docker ec2-user
+    # Do this so that docker commands can be executed without the need to use sudo
+    - name: Add ec2-user to docker group
+      user:
+        name: ec2-user
+        group: docker
+        append: yes
+
+    - name: Ensure pip package docker-py is at the latest version
+      pip:
+        name: docker-py
+
+    - name: reboot machine
+      reboot:

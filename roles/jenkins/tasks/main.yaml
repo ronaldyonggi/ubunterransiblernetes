@@ -1,0 +1,25 @@
+
+---
+- name: Run Jenkins Docker Image
+  block:
+    # sudo usermod -aG jenkins
+    - name: add jenkins-user to docker group
+      user:
+        name: jenkins
+        group: docker
+        append: yes
+
+    - name: Create a volume for storing Jenkins data
+      docker_volume:
+        name: MyVolume
+
+    - name: Create a container from the jenkins image above
+      docker_container:
+        name: MyJenkins
+        image: ryongg/lol:v1
+        ports:
+          - "8080:8080"
+          - "50000:50000"
+        volumes: MyVolume
+        state: started
+        recreate: yes
