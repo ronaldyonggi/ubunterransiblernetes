@@ -1,8 +1,49 @@
 ---
 - name: Docker installation
   block:
-    - name: Install Docker using amazon-linux-extras
-      command: amazon-linux-extras install -y docker
+    - name: Install aptitude using apt
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: yes
+        force_apt_get: yes
+
+    - name: Install required system packages
+      apt:
+        name: {{ item }}
+        state: latest
+        update_cache: yes
+      loop: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+    - name: Add Docker GPG apt key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repo
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce, docker-ce-cli, and containerd.io
+      apt:
+        update_cache: yes
+        name: docker-ce
+        state: latest
+
+    - name: Install docker-ce-cli
+      apt:
+        name: docker-ce-cli
+        state: latest
+
+    - name: Install containerd.io
+      apt:
+        name: containerd.io
+        state: latest
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
 
     - name: Start Docker service and enable on start-up boot
       service:
@@ -23,10 +64,6 @@
         name: ubuntu
         group: docker
         append: yes
-
-    - name: Ensure pip package docker-py is at the latest version
-      pip:
-        name: docker-py
 
     - name: reboot machine
       reboot:
