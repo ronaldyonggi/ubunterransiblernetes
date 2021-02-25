@@ -1,4 +1,0 @@
-
----
-- name: K3s installation
-  shell: curl -sfL https://get.k3s.io | sh -
