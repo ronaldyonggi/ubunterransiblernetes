@@ -10,3 +10,11 @@
       apt: 
         name: git
         state: latest
+
+    - name: Ensure apache2 is uninstalled
+      apt:
+        name: apache2
+        state: absent
+
+    - name: Disable swap
+      command: swapoff -a
