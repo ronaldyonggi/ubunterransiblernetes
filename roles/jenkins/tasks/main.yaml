@@ -18,7 +18,7 @@
         name: MyJenkins
         image: jenkins/jenkins:lts
         ports:
-          - "8080:8080"
+          - "9090:8080"
           - "50000:50000"
         volumes: MyVolume
         state: started
