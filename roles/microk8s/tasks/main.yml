@@ -1,0 +1,38 @@
+---
+- name: Microk8s installation
+  block:
+    - name: Install Microk8s from snap
+      snap:
+        name: microk8s
+        classic: yes
+        channel: 1.19
+
+      # sudo usermod -a -G microk8s ubuntu
+    - name: Add ubuntu to microk8s user group
+      user:
+        name: ubuntu
+        group: microk8s
+        append: yes
+
+    - name: create the .kube directory
+      file:
+        path: /home/ubuntu/.kube
+        state: directory
+
+    - name: chown
+      file:
+        path: /home/ubuntu/.kube
+        owner: ubuntu
+        group: ubuntu
+
+    # - name: add alias microk8s kubectl
+    #   lineinfile:
+    #     path: /home/ubuntu/.bashrc
+    #     line: "alias kubectl='microk8s kubectl'"
+    #     owner: ubuntu
+    #     # regexp: '^alias kubectl='microk8s kubectl'$'
+    #     state: present
+    #     insertafter: EOF
+    #     create: True
+
+
