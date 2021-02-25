@@ -13,10 +13,10 @@
       docker_volume:
         name: MyVolume
 
-    - name: Create a container from the jenkins image above
+    - name: Run the Jenkins image
       docker_container:
         name: MyJenkins
-        image: ryongg/lol:v1
+        image: jenkins/jenkins:lts
         ports:
           - "8080:8080"
           - "50000:50000"
