@@ -7,5 +7,5 @@
   roles:
   - prereq
   - docker
-  # - jenkins
-  - k3s
+  - jenkins
+  - microk8s
