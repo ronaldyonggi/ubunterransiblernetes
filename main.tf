@@ -118,7 +118,7 @@ resource "aws_instance" "terransinstance" {
       
       connection {
           type = "ssh"
-          user = "ec2-user"
+          user = "ubuntu"
           private_key = file(var.my_keypath)
           host = aws_instance.terransinstance.public_ip
       }
