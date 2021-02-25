@@ -1,0 +1,7 @@
+# All files whose name include the string 'tfstate' and 'terraform'
+*tfstate*
+*terraform*
+
+# All secrets and credential files
+credentials
+*.pem
