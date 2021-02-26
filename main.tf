@@ -107,7 +107,7 @@ resource "aws_network_interface" "my_network_interface" {
 
 resource "aws_instance" "terransinstance" {
   ami = var.my_ami
-  instance_type = "t2.micro"
+  instance_type = "t3.small"
   key_name = "keypair"
   associate_public_ip_address = true
   subnet_id = aws_subnet.my_subnet.id
