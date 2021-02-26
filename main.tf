@@ -108,7 +108,7 @@ resource "aws_network_interface" "my_network_interface" {
 resource "aws_instance" "terransinstance" {
   ami = var.my_ami
   instance_type = "t2.micro"
-  key_name = "Exercise"
+  key_name = "keypair"
   associate_public_ip_address = true
   subnet_id = aws_subnet.my_subnet.id
   security_groups = [aws_security_group.my_security_group.id]
@@ -119,6 +119,8 @@ resource "aws_instance" "terransinstance" {
       connection {
           type = "ssh"
           user = "ubuntu"
+          # Make sure the keypath below is NOT WITHIN the ubunterransiblernetes directory. 
+          # in this case it's one directory above.
           private_key = file(var.my_keypath)
           host = aws_instance.terransinstance.public_ip
       }
