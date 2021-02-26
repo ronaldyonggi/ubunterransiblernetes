@@ -3,5 +3,5 @@ variable "my_ami" {
 }
 
 variable "my_keypath" {
-    default = "./Exercise.pem"
+    default = "~/Downloads/keypair.pem"
 }
