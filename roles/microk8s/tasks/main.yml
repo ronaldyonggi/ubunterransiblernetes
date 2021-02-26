@@ -5,7 +5,7 @@
       snap:
         name: microk8s
         classic: yes
-        channel: 1.19
+        channel: "1.19"
 
       # sudo usermod -a -G microk8s ubuntu
     - name: Add ubuntu to microk8s user group
