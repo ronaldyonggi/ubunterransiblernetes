@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deploy
+  name: webapp-deployment
   labels:
     app: webapp-app
 spec:
@@ -19,4 +19,4 @@ spec:
         - name: webapp-container
           image: public.ecr.aws/t2e6o6l2/flaskapp:latest 
           ports:
-            - containerPort: 80
+            - containerPort: 8080
