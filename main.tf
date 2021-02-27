@@ -105,7 +105,7 @@ resource "aws_network_interface" "my_network_interface" {
   security_groups = [aws_security_group.my_security_group.id]
 }
 
-resource "aws_instance" "terransinstance" {
+resource "aws_instance" "my_instance" {
   ami = var.my_ami
   instance_type = "t3.small"
   key_name = "keypair"
@@ -122,15 +122,15 @@ resource "aws_instance" "terransinstance" {
           # Make sure the keypath below is NOT WITHIN the ubunterransiblernetes directory. 
           # in this case it's one directory above.
           private_key = file(var.my_keypath)
-          host = aws_instance.terransinstance.public_ip
+          host = aws_instance.my_instance.public_ip
       }
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i ${aws_instance.terransinstance.public_ip}, --private-key ${var.my_keypath} main.yaml"
+    command = "ansible-playbook -i ${aws_instance.my_instance.public_ip}, --private-key ${var.my_keypath} main.yaml"
   }
 
   tags = {
-    Name = "terransiblinstance"
+    Name = "Project"
   }
 }
