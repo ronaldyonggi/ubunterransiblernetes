@@ -16,7 +16,7 @@
     - name: Run the Jenkins image
       docker_container:
         name: MyJenkins
-        image: jenkins/jenkins:lts
+        image: public.ecr.aws/t2e6o6l2/jenkins-build
         ports:
           - "9090:8080"
           - "50000:50000"
