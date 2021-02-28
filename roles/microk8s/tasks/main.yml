@@ -19,11 +19,24 @@
         path: /home/ubuntu/.kube
         state: directory
 
-    - name: chown
+    - name: chown the .kube 
       file:
         path: /home/ubuntu/.kube
         owner: ubuntu
         group: ubuntu
+
+    - name: Check status
+      command: microk8s status --wait-ready
+
+    - name: Enable dns
+      command: microk8s enable dns
+
+    - name: add alias 'microk8s kubectl' -> 'kubectl'
+      copy:
+        dest: "/home/ubuntu/.bash_aliases"
+        content: |
+          alias kubectl='microk8s kubectl'
+
 
     # - name: add alias microk8s kubectl
     #   lineinfile:
