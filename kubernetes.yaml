@@ -18,5 +18,27 @@ spec:
       containers:
         - name: webapp-container
           image: public.ecr.aws/t2e6o6l2/flaskapp:latest 
+          # limits:
+          #   memory: "128Mi"
+          #   cpu: "500m"
           ports:
-            - containerPort: 8080
+            - containerPort: 80
+
+---
+# Service - nodePort
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-svc
+  labels:
+    app: webapp-app
+spec:
+  selector:
+    app: webapp-app
+  type: NodePort
+  ports:
+  - nodePort: 31000
+    port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
