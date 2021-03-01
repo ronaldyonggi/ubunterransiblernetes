@@ -1,4 +1,5 @@
 git:latest
 github:latest
 docker-plugin:latest
+docker-workflow:latest
 workflow-aggregator:latest
