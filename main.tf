@@ -107,7 +107,7 @@ resource "aws_network_interface" "my_network_interface" {
 
 resource "aws_instance" "my_instance" {
   ami = var.my_ami
-  instance_type = "t3a.small"
+  instance_type = "t3a.large"
   key_name = "keypair"
   associate_public_ip_address = true
   subnet_id = aws_subnet.my_subnet.id
