@@ -14,16 +14,29 @@
         group: microk8s
         append: yes
 
+      # sudo usermod -a -G microk8s jenkins
+    - name: Add jenkins to microk8s user group
+      user:
+        name: jenkins
+        group: microk8s
+        append: yes
+
     - name: create the .kube directory
       file:
         path: /home/ubuntu/.kube
         state: directory
 
-    - name: chown the .kube 
+    - name: chown the .kube to ubuntu
       file:
         path: /home/ubuntu/.kube
         owner: ubuntu
         group: ubuntu
+
+    - name: chown the .kube for jenkins
+      file:
+        path: /home/ubuntu/.kube
+        owner: jenkins
+        group: jenkins
 
     - name: Check status
       command: microk8s status --wait-ready
@@ -36,16 +49,3 @@
         dest: "/home/ubuntu/.bash_aliases"
         content: |
           alias kubectl='microk8s kubectl'
-
-
-    # - name: add alias microk8s kubectl
-    #   lineinfile:
-    #     path: /home/ubuntu/.bashrc
-    #     line: "alias kubectl='microk8s kubectl'"
-    #     owner: ubuntu
-    #     # regexp: '^alias kubectl='microk8s kubectl'$'
-    #     state: present
-    #     insertafter: EOF
-    #     create: True
-
-
