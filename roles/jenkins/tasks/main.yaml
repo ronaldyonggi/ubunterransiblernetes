@@ -2,6 +2,20 @@
 ---
 - name: Run Jenkins Docker Image
   block:
+    - name: Install Java JDK
+      apt:
+        name: openjdk-11-jdk
+
+      # wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+    - name: Ensure the Jenkins apt repo key is installed
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+
+    - name: Ensure the repo is configured
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+
+    - name: Ensure Jenkins is installed
+      apt: name=jenkins update_cache=yes
+
     # sudo usermod -aG jenkins
     - name: add jenkins-user to docker group
       user:
@@ -9,17 +23,17 @@
         group: docker
         append: yes
 
-    - name: Create a volume for storing Jenkins data
-      docker_volume:
-        name: MyVolume
+    # - name: Create a volume for storing Jenkins data
+    #   docker_volume:
+    #     name: MyVolume
 
-    - name: Run the Jenkins image
-      docker_container:
-        name: MyJenkins
-        image: public.ecr.aws/t2e6o6l2/jenkins-build
-        ports:
-          - "9090:8080"
-          - "50000:50000"
-        volumes: MyVolume
-        state: started
-        recreate: yes
+    # - name: Run the Jenkins image
+    #   docker_container:
+    #     name: MyJenkins
+    #     image: public.ecr.aws/t2e6o6l2/jenkins-build
+    #     ports:
+    #       - "9090:8080"
+    #       - "50000:50000"
+    #     volumes: MyVolume
+    #     state: started
+    #     recreate: yes
