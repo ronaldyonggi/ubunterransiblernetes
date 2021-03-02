@@ -1,0 +1,21 @@
+
+---
+- name: Final wrap up
+  block:
+    - name: Reboot machine
+      reboot:
+
+    # sudo chmod 666 /var/run/docker.sock
+    # make sure to do this AFTER reboot because when rebooted, the permission reverts back to previous state
+    - name: change docker.sock permission
+      file:
+        path: /var/run/docker.sock
+        owner: root
+        group: root
+        mode: '666'
+
+    - name: Start Jenkins and enable during machine boot
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
