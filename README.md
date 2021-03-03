@@ -66,7 +66,7 @@ The following Jenkins plugins are used:
 3. [Docker](https://plugins.jenkins.io/docker-plugin/)
 4. [Docker Pipeline](https://plugins.jenkins.io/docker-workflow/)
 5. [Pipeline](https://plugins.jenkins.io/workflow-aggregator/)
-## Jenkins Job Configuration: Pipeline
+## Jenkins Pipeline Job Configuration
 
 Choose the Pipeline job.
 
@@ -85,8 +85,7 @@ On `Pipeline` configuration,
 
 ![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/fromSCM.jpg)
 
-[Here](https://github.com/ronaldyonggi/flaskapp) is the repository containing the Jenkinsfile.
-## Jenkins Automate Build and Push Image to DockerHub
+## Jenkins - Dockerhub Credentials
 
 1. Create a new repository in DockerHub
 2. Go to Jenkins Configuration -> Manage Credentials -> `(global)`
@@ -109,3 +108,11 @@ Go to the GitHub project that will be used in the pipeline. Go to Settings -> We
 Set the Payload URL to be the Jenkins URL with `/github-webhook/`added at the end. Then change content type to `application/json`. 
 
 ![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/webhook2.jpg)
+
+## Jenkinsfile Repository
+
+[Here](https://github.com/ronaldyonggi/flaskapp) is the repository containing the Jenkinsfile. This repository also contains:
+
+1. `Dockerfile` for building the image and pushing to Docker Hub
+2. `kubernetes.yaml` containing specifications for Kubernetes deployment and service.
+
