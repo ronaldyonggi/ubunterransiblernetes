@@ -36,7 +36,7 @@ The following components are created using Terraform. See `main.tf` file.
 5. Route table association
 6. Security group
 7. Network interface
-8. An EC2 instance with the resources above associated
+8. An EC2 instance with the resources above associated, using Ubuntu 20.04
 
 ## Use Ansible Playbook to automate EC2 instance configuration
 
@@ -49,14 +49,52 @@ Ansible Playbook is used to automate configuration and installation of the follo
 
 The lines starting from `provisioner "remote-exec"{...` in `main.tf` shows the associated code for incorporating Ansible Playbook within Terraform. See `main.yaml` for the Ansible Playbook file that is used for this task.
 
-The `main.yaml` playbook breaks tasks into several roles, which are contained within the `roles` directory.
+The `main.yaml` playbook tasks are broken into several roles that are contained within the `roles` directory.
 
 #### Configure Jenkins - Plugins
 
 The following Jenkins plugins are used:
 
-1. Git
-2. GitHub
-3. Docker
-4. Docker Pipeline
-5. Pipeline
+1. [Git](https://plugins.jenkins.io/git/)
+2. [GitHub](https://plugins.jenkins.io/git/)
+3. [Docker](https://plugins.jenkins.io/docker-plugin/)
+4. [Docker Pipeline](https://plugins.jenkins.io/docker-workflow/)
+5. [Pipeline](https://plugins.jenkins.io/workflow-aggregator/)
+## Jenkins Job Configuration: Pipeline
+
+Choose the Pipeline job.
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/pipeline.jpg)
+
+On `Build Triggers` settings, make sure to check `GitHub hook trigger for GITScm polling`.
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/gitpoll.jpg)
+
+On `Pipeline` configuration, provide the repository URL. If using GitHub, don't forget to change Branch Specifier from `*/master` to `*/main`.
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/fromSCM.jpg)
+
+## Jenkins Automate Build and Push Image to DockerHub
+
+1. Create a new repository in DockerHub
+2. Go to Jenkins Configuration -> Manage Credentials -> `(global)`
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/global.jpg)
+
+3. Set up credential and save it.
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/cred.jpg)
+
+4. See `Jenkinsfile` for pipeline setup
+
+## Incorporate Jenkins with GitHub
+[Reference](https://www.cprime.com/resources/blog/how-to-integrate-jenkins-github/)
+
+Go to the GitHub project that will be used in the pipeline. Go to Settings -> Webhooks -> Add webhook.
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/webhook.jpg)
+
+
+Set the Payload URL to be the Jenkins URL with `/github-webhook/`added at the end. Then change content type to `application/json`. 
+
+![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/webhook2.jpg)
