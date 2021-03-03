@@ -47,7 +47,13 @@ Ansible Playbook is used to automate configuration and installation of the follo
 3. Jenkins
 4. Microk8s
 
-The lines starting from `provisioner "remote-exec"{...` in `main.tf` shows the associated code for incorporating Ansible Playbook within Terraform. See `main.yaml` for the Ansible Playbook file that is used for this task.
+The lines starting from:
+```
+provisioner "remote-exec"{...`
+```
+ 
+ in `main.tf` shows the associated code for incorporating Ansible Playbook within Terraform. See `main.yaml` for the Ansible Playbook file that is used for this task.
+
 
 The `main.yaml` playbook tasks are broken into several roles that are contained within the `roles` directory.
 
@@ -70,10 +76,16 @@ On `Build Triggers` settings, make sure to check `GitHub hook trigger for GITScm
 
 ![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/gitpoll.jpg)
 
-On `Pipeline` configuration, provide the repository URL. If using GitHub, don't forget to change Branch Specifier from `*/master` to `*/main`.
+On `Pipeline` configuration,
+
+1. On `definition`, choose `Pipeline script from SCM`
+2. Select `Git` for SCM and provide the repository URL that contains the `Jenkinsfile`
+3. Provide credentials. See the next section below on adding credentials.
+4. Set branch specifier to `*/main`
 
 ![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/fromSCM.jpg)
 
+[Here](https://github.com/ronaldyonggi/flaskapp) is the repository containing the Jenkinsfile.
 ## Jenkins Automate Build and Push Image to DockerHub
 
 1. Create a new repository in DockerHub
@@ -85,7 +97,6 @@ On `Pipeline` configuration, provide the repository URL. If using GitHub, don't 
 
 ![](https://github.com/ronaldyonggi/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/cred.jpg)
 
-4. See `Jenkinsfile` for pipeline setup
 
 ## Incorporate Jenkins with GitHub
 [Reference](https://www.cprime.com/resources/blog/how-to-integrate-jenkins-github/)
