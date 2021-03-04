@@ -43,9 +43,10 @@ The following components are created using Terraform. See `main.tf` file.
 Ansible Playbook is used to automate configuration and installation of the following within the provisioned EC2 instance:
 
 1. Git
-2. Docker
-3. Jenkins
-4. Microk8s
+2. Stress
+3. Docker
+4. Jenkins
+5. Microk8s
 
 The lines starting from:
 ```
@@ -113,6 +114,7 @@ Set the Payload URL to be the Jenkins URL with `/github-webhook/`added at the en
 
 [Here](https://github.com/ronaldyonggi/flaskapp) is the repository containing the Jenkinsfile. This repository also contains:
 
-1. `Dockerfile` for building the image and pushing to Docker Hub
-2. `kubernetes.yaml` containing specifications for Kubernetes deployment and service.
+1. The Flask app required for the project
+2. `Dockerfile` for building the image and pushing to Docker Hub
+3. `kubernetes.yaml` containing specifications for Kubernetes deployment and service
 
