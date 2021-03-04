@@ -1,6 +1,17 @@
 ---
 - name: Install prerequisites
   block:
+    - name: Install aptitude using apt
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: yes
+        force_apt_get: yes
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
     - name: Upgrade all packages
       apt:
         name: '*'
@@ -9,6 +20,11 @@
     - name: Ensure git is at the latest version
       apt: 
         name: git
+        state: latest
+
+    - name: Ensure stress is at the latest version
+      apt: 
+        name: stress
         state: latest
 
     - name: Ensure apache2 is uninstalled
